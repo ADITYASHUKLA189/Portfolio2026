@@ -1,0 +1,60 @@
+# Node.js modules
+*node_modules/
+*venv/
+
+# Environment files
+.env
+frontend/.env
+backend/.env
+
+# Build output
+frontend/build/
+
+# Logs
+*.log
+logs/
+backend/logs/
+frontend/logs/
+
+# Cached/processed images (regenerated at runtime)
+backend/data/Images/compressed_images/
+backend/data/Images/downloaded_images/
+backend/data/ImagesToCompress/
+
+# Seed scripts (dev only)
+backend/seedAdmin.js
+backend/seedData.js
+
+# Local databases
+/data/db/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+*.sublime*
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+.cache/
+frontend/.cache/
+backend/.cache/
+
+# Production files
+.env.production
+.env.local
+.github
+.cursorrules
+
+# Build artifacts
+.parcel-cache/
+.next/
+.nuxt/
+dist/
