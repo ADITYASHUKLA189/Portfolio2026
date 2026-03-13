@@ -25,6 +25,9 @@ const AdminTab = ({ loggedIn, setLoggedIn }) => {
   const [otpSent, setOtpSent] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  const [showForgot, setShowForgot] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
 
   useEffect(() => {
     checkTokenValidity(setLoggedIn);
@@ -39,6 +42,7 @@ const AdminTab = ({ loggedIn, setLoggedIn }) => {
       await axios.post(`${API_URL}/compareAdminName`, { userName });
       setUserVerified(true);
       setError("");
+      setInfo("");
     } catch {
       setError("Invalid Username!");
     }
@@ -75,11 +79,51 @@ const AdminTab = ({ loggedIn, setLoggedIn }) => {
     );
   };
 
+  const sendRecoveryEmail = (recoveryTarget, recoveredUser, recoveredPassword) => {
+    const message = `Hey Aditya,\n\nAs requested, here are your recovered admin credentials:\nUsername: ${recoveredUser}\nPassword: ${recoveredPassword}\n\nPlease log in and rotate them immediately from Admin Management if needed.\n\nRecovery Service`;
+    return emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      {
+        from_name: "Portfolio Recovery Service",
+        from_email: recoveryTarget,
+        from_phone: "",
+        message,
+      },
+      { publicKey: process.env.REACT_APP_EMAILJS_USER_ID },
+    );
+  };
+
+  const handleForgotCredentials = async () => {
+    setError("");
+    setInfo("");
+
+    if (!recoveryEmail.trim()) {
+      setError("Enter the recovery email configured in your contact/admin setup.");
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(`${API_URL}/forgotAdminCredentials`, {
+        recoveryEmail: recoveryEmail.trim(),
+      });
+
+      await sendRecoveryEmail(data.recoveryEmail, data.userName, data.password);
+      setInfo(`Recovery email sent to ${data.recoveryEmail}. Check your inbox.`);
+      setShowForgot(false);
+      setRecoveryEmail("");
+    } catch (err) {
+      const message = err?.response?.data?.message || "Failed to recover admin credentials.";
+      setError(message);
+    }
+  };
+
   const verifyOTP = async () => {
     try {
       await axios.post(`${API_URL}/compareOTP`, { otp, rememberMe });
       setLoggedIn(true);
       setError("");
+      setInfo("");
     } catch {
       setError("Invalid or Expired OTP!");
     }
@@ -112,6 +156,34 @@ const AdminTab = ({ loggedIn, setLoggedIn }) => {
                 <button className="login-btn" onClick={verifyUsername}>
                   Verify Username
                 </button>
+                <button
+                  type="button"
+                  className="forgot-btn"
+                  onClick={() => {
+                    setShowForgot((prev) => !prev);
+                    setError("");
+                    setInfo("");
+                  }}
+                >
+                  Forgot Username / Password?
+                </button>
+                {showForgot && (
+                  <div className="forgot-panel">
+                    <input
+                      id="admin-recovery-email"
+                      name="admin_recovery_email"
+                      type="email"
+                      placeholder="Recovery Email"
+                      className="login-input"
+                      value={recoveryEmail}
+                      onChange={(e) => setRecoveryEmail(e.target.value)}
+                      onKeyDown={(e) => handleEnterKey(e, handleForgotCredentials)}
+                    />
+                    <button className="login-btn" type="button" onClick={handleForgotCredentials}>
+                      Send Credentials To Email
+                    </button>
+                  </div>
+                )}
               </>
             ) : !otpSent ? (
               <>
@@ -165,6 +237,7 @@ const AdminTab = ({ loggedIn, setLoggedIn }) => {
               </>
             )}
             {error && <p className="danger">{error}</p>}
+            {info && <p className="success-msg">{info}</p>}
           </div>
         </div>
       ) : (

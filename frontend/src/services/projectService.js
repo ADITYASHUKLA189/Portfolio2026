@@ -88,16 +88,54 @@ const FALLBACK_PROJECTS = [
     ],
     likesCount: 0,
   },
+  {
+    projectTitle: "Aditya Portfolio MERN",
+    projectLink: "aditya-portfolio-mern",
+    projectSubTitle: "React + Fastify + MongoDB + Gemini API",
+    projectTimeline: "2025 – 2026",
+    projectTagline: "Full-stack portfolio platform with an AI companion, admin-managed content, voice input, and animated project storytelling.",
+    projectImages: [process.env.PUBLIC_URL + "/images/fullstack-dev.webp"],
+    projectURLs: [
+      "https://github.com/ADITYASHUKLA189/Portfolio2026",
+      "https://portfolio2026-lime.vercel.app/",
+    ],
+    projectParagraphs: [
+      "A full-stack personal portfolio built with React on the frontend and a Fastify + MongoDB backend. It showcases projects, experience, skills, honors, and involvements inside a highly animated, interactive interface.",
+      "Includes an AI companion with context-aware responses, voice input support, dynamic content loading, image preloading, and admin-manageable portfolio data served through REST APIs.",
+      "Designed to work as both a personal brand site and a real product demo, combining polished UI motion with practical backend architecture and deployable MERN workflows.",
+    ],
+    likesCount: 0,
+  },
 ];
+
+const PORTFOLIO_PROJECT_LINK = "aditya-portfolio-mern";
+
+const mergeProjects = (projects) => {
+  const normalizedProjects = Array.isArray(projects) ? [...projects] : [];
+  const hasPortfolioProject = normalizedProjects.some(
+    (project) => project?.projectLink === PORTFOLIO_PROJECT_LINK,
+  );
+
+  if (!hasPortfolioProject) {
+    const portfolioProject = FALLBACK_PROJECTS.find(
+      (project) => project.projectLink === PORTFOLIO_PROJECT_LINK,
+    );
+    if (portfolioProject) {
+      normalizedProjects.push(portfolioProject);
+    }
+  }
+
+  return normalizedProjects;
+};
 
 // Fetch all projects
 export const fetchProjects = async () => {
   try {
     const response = await axios.get(`${API_URL}/getprojects`);
-    return response.data;
+    return mergeProjects(response.data);
   } catch (error) {
     console.error("Error fetching projects, using fallback data:", error);
-    return FALLBACK_PROJECTS;
+    return mergeProjects(FALLBACK_PROJECTS);
   }
 };
 

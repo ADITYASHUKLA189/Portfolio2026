@@ -15,7 +15,7 @@ const Links = ({ isBatterySavingOn, isWindowModalVisible }) => {
       label: "GitHub",
     },
     {
-      href: "https://leetcode.com/u/Aditya_Shuklaa/",
+      href: "https://leetcode.com/u/cPyORwmUqZ/",
       icon: require("../../assets/img/icons/devpost.png"),
       label: "LeetCode",
     },

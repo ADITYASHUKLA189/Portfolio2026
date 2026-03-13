@@ -76,6 +76,37 @@
   font-size: 0.9rem;
 }
 
+.success-msg {
+  color: #4ade80;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.forgot-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #3a404a;
+  background: #20242b;
+  color: #b7d4ff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.forgot-btn:hover {
+  background: #2a303a;
+}
+
+.forgot-panel {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2f3540;
+  background: #171b21;
+}
+
 .toggle-container {
   display: flex;
   align-items: center;

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A0F20"/>
+      <stop offset="1" stop-color="#541A1A"/>
+    </linearGradient>
+    <linearGradient id="card" x1="190" y1="120" x2="1010" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8D1E1E"/>
+      <stop offset="1" stop-color="#C23A2A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#bg)"/>
+
+  <rect x="170" y="100" width="860" height="520" rx="22" fill="url(#card)"/>
+  <rect x="205" y="135" width="790" height="450" rx="18" stroke="#FF7A4A" stroke-width="3"/>
+
+  <circle cx="920" cy="185" r="78" fill="#FF6A4E"/>
+  <rect x="230" y="500" width="210" height="74" fill="#FF6245"/>
+
+  <text x="250" y="305" fill="#FFFFFF" font-family="Montserrat, Arial, sans-serif" font-size="56" font-weight="600">
+    Competitive Programming
+  </text>
+  <text x="250" y="365" fill="#FFD8CC" font-family="Montserrat, Arial, sans-serif" font-size="40" font-weight="500">
+    LeetCode 1735+ | 700+ DSA
+  </text>
+</svg>

@@ -18,7 +18,7 @@ Personal portfolio website for **Aditya Shukla** — B.Tech Information Technolo
 - **Skills Radar Charts** — Front-end, Back-end, Competitive Programming, Tools & Platforms with Chart.js radar graphs
 - **Coding Stats Bar Chart** — GitHub language distribution (C++, JavaScript, HTML, CSS, Python, TypeScript)
 - **AI Companion** — Conversational chatbot with voice input, context-aware dialog, and follow-up suggestions
-- **LeetCode 1650+** rating | **400+ DSA problems** solved in C++
+- **LeetCode 1735+** rating | **700+ DSA problems** solved in C++
 
 ## Tech Stack
 
@@ -85,6 +85,6 @@ GITHUB_TOKEN="<GitHub PAT (optional)>"
 - **Email:** Shukladitya22@gmail.com
 - **GitHub:** [ADITYASHUKLA189](https://github.com/ADITYASHUKLA189)
 - **LinkedIn:** [aditya-shukla-44121a2bb](https://www.linkedin.com/in/aditya-shukla-44121a2bb/)
-- **LeetCode:** [Aditya_Shuklaa](https://leetcode.com/u/Aditya_Shuklaa/)
+- **LeetCode:** [Aditya Shukla](https://leetcode.com/u/cPyORwmUqZ/)
 
 ---

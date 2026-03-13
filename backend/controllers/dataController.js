@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { getDB } = require("../config/mongodb");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
+const crypto = require("crypto");
 
 // Helper: convert a route parameter or value to an ObjectId
 function getObjectId(id) {
@@ -15,6 +16,42 @@ function getObjectId(id) {
   } else {
     throw new Error("Invalid id format");
   }
+}
+
+// Encrypt/decrypt helpers for admin credential recovery payloads.
+function getEncryptionKey() {
+  const secret = process.env.JWT_SECRET || "fallback-admin-recovery-key";
+  return crypto.createHash("sha256").update(secret).digest();
+}
+
+function encryptText(plainText) {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", getEncryptionKey(), iv);
+  const encrypted = Buffer.concat([
+    cipher.update(String(plainText), "utf8"),
+    cipher.final(),
+  ]);
+  const tag = cipher.getAuthTag();
+  return {
+    iv: iv.toString("hex"),
+    tag: tag.toString("hex"),
+    content: encrypted.toString("hex"),
+  };
+}
+
+function decryptText(payload) {
+  if (!payload?.iv || !payload?.tag || !payload?.content) return "";
+  const decipher = crypto.createDecipheriv(
+    "aes-256-gcm",
+    getEncryptionKey(),
+    Buffer.from(payload.iv, "hex")
+  );
+  decipher.setAuthTag(Buffer.from(payload.tag, "hex"));
+  const decrypted = Buffer.concat([
+    decipher.update(Buffer.from(payload.content, "hex")),
+    decipher.final(),
+  ]);
+  return decrypted.toString("utf8");
 }
 
 // Define a fetch function using dynamic import for node-fetch (GitHub API)
@@ -1124,15 +1161,71 @@ const setAdminCredentials = async (request, reply) => {
     }
     const hashedUsername = await bcrypt.hash(userName, 10);
     const hashedPassword = await bcrypt.hash(password, 10);
+    const encryptedUsername = encryptText(userName);
+    const encryptedPassword = encryptText(password);
     await db.collection("AdityaPortfolio").deleteMany({});
     await db.collection("AdityaPortfolio").insertOne({
       userName: hashedUsername,
       password: hashedPassword,
+      recoveryUserName: encryptedUsername,
+      recoveryPassword: encryptedPassword,
     });
     reply.send({ success: true, message: "Admin credentials set." });
   } catch (error) {
     console.error("Error setting admin credentials:", error);
     reply.code(500).send({ message: "Error setting credentials." });
+  }
+};
+
+const forgotAdminCredentials = async (request, reply) => {
+  const { recoveryEmail } = request.body || {};
+  const expectedRecoveryEmail =
+    process.env.ADMIN_RECOVERY_EMAIL || "Shukladitya22@gmail.com";
+
+  if (
+    !recoveryEmail ||
+    recoveryEmail.trim().toLowerCase() !==
+      expectedRecoveryEmail.toLowerCase()
+  ) {
+    return reply.code(403).send({
+      message: "Recovery email does not match the configured admin recovery email.",
+    });
+  }
+
+  const db = getDB();
+  try {
+    const admin = await db.collection("AdityaPortfolio").findOne({});
+    if (!admin) {
+      return reply.code(404).send({ message: "Admin not found." });
+    }
+
+    if (!admin.recoveryUserName || !admin.recoveryPassword) {
+      return reply.code(409).send({
+        message:
+          "Recovery data is not initialized yet. Update admin credentials once from Admin Management, then retry forgot credentials.",
+      });
+    }
+
+    const plainUserName = decryptText(admin.recoveryUserName);
+    const plainPassword = decryptText(admin.recoveryPassword);
+
+    if (!plainUserName || !plainPassword) {
+      return reply
+        .code(500)
+        .send({ message: "Could not decrypt recovery credentials." });
+    }
+
+    return reply.send({
+      success: true,
+      recoveryEmail: expectedRecoveryEmail,
+      userName: plainUserName,
+      password: plainPassword,
+    });
+  } catch (error) {
+    console.error("Error recovering admin credentials:", error);
+    return reply
+      .code(500)
+      .send({ message: "Error recovering admin credentials." });
   }
 };
 
@@ -1251,6 +1344,7 @@ module.exports = {
   deleteFeed,
   editFeed,
   addLike,
+  forgotAdminCredentials,
   // resetLikes,
   getTopLanguages,
 };

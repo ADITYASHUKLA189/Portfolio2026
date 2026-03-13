@@ -11,12 +11,12 @@ const aboutData = [
   {
     icon: "bx bxs-hourglass about-icon",
     title: "LeetCode Rating",
-    subtitle: "1650+",
+    subtitle: "1735+",
   },
   {
     icon: "bx bx-trophy about-icon",
     title: "DSA Problems",
-    subtitle: "400+ Solved",
+    subtitle: "700+ Solved",
   },
   {
     icon: "bx bx-support about-icon",
@@ -126,7 +126,7 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                   development and backend systems. Skilled in the MERN stack,
                   Python, and FastAPI for building RESTful APIs. My work is driven
                   by curiosity and a passion for next-gen user experiences.
-                  LeetCode rating 1650+ with 400+ DSA problems solved in C++.
+                  LeetCode rating 1735+ with 700+ DSA problems solved in C++.
                 </p>
               </motion.div>
               <motion.h2

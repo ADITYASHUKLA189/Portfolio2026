@@ -213,6 +213,7 @@ async function dataRoutes(fastify, options) {
   fastify.post("/compareAdminName", dataController.compareAdminName);
   fastify.post("/compareAdminPassword", dataController.compareAdminPassword);
   fastify.post("/compareOTP", dataController.compareOTP);
+  fastify.post("/forgotAdminCredentials", dataController.forgotAdminCredentials);
   fastify.get("/logout", dataController.logoutAdmin);
 
   fastify.get("/collection-counts", dataController.getCollectionCounts);
