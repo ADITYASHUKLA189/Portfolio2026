@@ -15,6 +15,7 @@ app.register(require("@fastify/cors"), {
   origin: [
     "https://aditya-shukla-portfolio.onrender.com",
     "https://aditya-shukla.dev",
+    "https://portfolio2026-lime.vercel.app",
     "http://localhost:3000",
     "http://localhost:3001",
   ],
