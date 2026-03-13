@@ -11,14 +11,28 @@ const { connectDB, getDBMetrics, resetDBMetrics } = require("./config/mongodb");
 const app = fastify({ logger: false, bodyLimit: 50 * 1024 * 1024 });
 
 // CORS, Cookies, Formbody
+const HARDCODED_ORIGINS = [
+  "https://aditya-shukla-portfolio.onrender.com",
+  "https://aditya-shukla.dev",
+  "https://portfolio2026-lime.vercel.app",
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
+
+const envOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+  : [];
+
+const ALLOWED_ORIGINS = [...new Set([...HARDCODED_ORIGINS, ...envOrigins])];
+
 app.register(require("@fastify/cors"), {
-  origin: [
-    "https://aditya-shukla-portfolio.onrender.com",
-    "https://aditya-shukla.dev",
-    "https://portfolio2026-lime.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:3001",
-  ],
+  origin: (origin, cb) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      cb(null, true);
+    } else {
+      cb(new Error(`CORS: origin not allowed: ${origin}`), false);
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
