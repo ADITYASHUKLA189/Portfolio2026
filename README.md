@@ -14,7 +14,7 @@ Personal portfolio website for **Aditya Shukla** — B.Tech Information Technolo
 ### Highlights
 
 - **6 Projects** — EduArchive, Diagnostic Centre, E-Commerce, 3D Interactive Portfolio, Weather App, Simon Says Game
-- **4 Experiences** — SaiKet Systems Python Internship, Full Stack Development, B.Tech IT @ IIIT-BH, Competitive Programming & Mentoring
+- **3 Experiences** — Full Stack Development, B.Tech IT @ IIIT-BH, Competitive Programming & Mentoring
 - **Skills Radar Charts** — Front-end, Back-end, Competitive Programming, Tools & Platforms with Chart.js radar graphs
 - **Coding Stats Bar Chart** — GitHub language distribution (C++, JavaScript, HTML, CSS, Python, TypeScript)
 - **AI Companion** — Conversational chatbot with voice input, context-aware dialog, and follow-up suggestions

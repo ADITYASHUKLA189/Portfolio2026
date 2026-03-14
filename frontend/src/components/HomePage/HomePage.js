@@ -178,10 +178,55 @@ function HomePage({
       <div key="home-bg" className="homepage-bg-wrapper" ref={HomeBGRef}>
         <motion.div
           className="homepage-bg"
-          style={
-            isBatterySavingOn
-              ? {
-                  background: `linear-gradient(
+          style={{
+            ...(isBatterySavingOn
+              ? {}
+              : {
+                  scale,
+                  filter: `blur(${appliedBlur}px)`,
+                  transformOrigin: "top top",
+                  willChange: "transform, filter",
+                  transform: "translateZ(0)",
+                }),
+          }}
+        >
+          {/* Background Video */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="background-video"
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              zIndex: -1,
+              top: 0,
+              left: 0,
+              display: isBatterySavingOn ? "none" : "block", // Hide video if battery saving is ON
+            }}
+          >
+            {/* Replace "home-bg-video.mp4" with your actual video file path in the public folder */}
+            <source
+              src={`${process.env.PUBLIC_URL}/home-bg-video.mp4`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+
+          {/* Gradient Overlay and Image Fallback */}
+          <div
+            className="background-overlay"
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              top: 0,
+              left: 0,
+              zIndex: 0,
+              background: `linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0.4),
                 rgba(0, 0, 0, 0.35),
@@ -191,38 +236,22 @@ function HomePage({
                 rgba(0, 0, 0, 0.25),
                 rgba(0, 0, 0, 0.1),
                 rgba(0, 0, 0, 0.1)
-              ), url('${process.env.PUBLIC_URL}/home-bg.webp'))`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundAttachment: "fixed",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                }
-              : {
-                  background: `linear-gradient(
-                  to bottom,
-                  rgba(0, 0, 0, 0.4),
-                  rgba(0, 0, 0, 0.35),
-                  rgba(0, 0, 0, 0.3),
-                  rgba(0, 0, 0, 0.25),
-                  rgba(0, 0, 0, 0.2),
-                  rgba(0, 0, 0, 0.25),
-                  rgba(0, 0, 0, 0.1),
-                  rgba(0, 0, 0, 0.1)
-                ), url('${process.env.PUBLIC_URL}/home-bg.webp')`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundAttachment: "fixed",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  // opacity,
-                  scale,
-                  filter: `blur(${appliedBlur}px)`,
-                  transformOrigin: "top top",
-                  zIndex: 0,
-                  willChange: "transform, filter",
-                  transform: "translateZ(0)",
-                }
-          }
-        />
+              ), url('${process.env.PUBLIC_URL}/home-bg.webp')`,
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              // If not in battery saving mode, make the image overlay translucent over the video
+              // by retaining the gradient but suppressing the image.
+              ...(isBatterySavingOn 
+                ? {} 
+                : { 
+                    backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))` 
+                  }
+              ),
+            }}
+          />
+        </motion.div>
       </div>
       <section key="home-content" className="homepage-container" id="home">
         <div

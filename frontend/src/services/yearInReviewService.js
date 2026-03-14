@@ -12,7 +12,7 @@ const FALLBACK_YEAR_IN_REVIEWS = [
     yearInReviewURLs: ["https://github.com/ADITYASHUKLA189"],
     yearInReviewParagraphs: [
       "2025 was a breakthrough year — built EduArchive (academic resource platform), Diagnostic Centre management system, Weather App, Simon Says Game, and a 3D Interactive Portfolio.",
-      "Reached 1735+ LeetCode rating and solved 700+ DSA problems in C++. Completed a Python Development Internship at SaiKet Systems. Started B.Tech IT at IIIT-Bhubaneswar."
+      "Reached 1735+ LeetCode rating and solved 700+ DSA problems in C++. Started B.Tech IT at IIIT-Bhubaneswar."
     ],
     likesCount: 0,
   },
@@ -24,7 +24,7 @@ const normalizeYearInReview = (yearInReview) => ({
     "Built EduArchive & Diagnostic Centre, reached LeetCode 1735+, and solved 700+ DSA problems in C++.",
   yearInReviewParagraphs: [
     "2025 was a breakthrough year — built EduArchive (academic resource platform), Diagnostic Centre management system, Weather App, Simon Says Game, and a 3D Interactive Portfolio.",
-    "Reached 1735+ LeetCode rating and solved 700+ DSA problems in C++. Completed a Python Development Internship at SaiKet Systems. Started B.Tech IT at IIIT-Bhubaneswar.",
+    "Reached 1735+ LeetCode rating and solved 700+ DSA problems in C++. Started B.Tech IT at IIIT-Bhubaneswar.",
   ],
 });
 

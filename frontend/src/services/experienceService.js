@@ -4,21 +4,6 @@ const API_URL = `${process.env.REACT_APP_API_URI}`;
 
 const FALLBACK_EXPERIENCES = [
   {
-    experienceTitle: "Python Development Intern — SaiKet Systems",
-    experienceLink: "saiket-systems-internship",
-    experienceSubTitle: "SaiKet Systems (AICTE Approved)",
-    experienceTimeline: "2025 – Present",
-    experienceTagline: "Completed Python development tasks including web scraping, file handling, word count tools, and data analysis at SaiKet Systems.",
-    experienceImages: [process.env.PUBLIC_URL + "/images/fullstack-dev.webp"],
-    experienceURLs: ["https://www.linkedin.com/in/aditya-shukla-44121a2bb/", "https://saiket.in/internship/"],
-    experienceParagraphs: [
-      "Completed a Python Development Internship at SaiKet Systems, an AICTE-approved internship program focused on strengthening core Python concepts.",
-      "Tasks included building a Basic Web Scraper, File Handling system, Word Count Tool, and more. Gained hands-on experience in data structures, control flow, string manipulation, and automation.",
-      "This internship helped solidify my Python fundamentals and gave me real-world exposure to building tools and scripts used in industry."
-    ],
-    likesCount: 0,
-  },
-  {
     experienceTitle: "Full Stack Development Services",
     experienceLink: "fullstack-services",
     experienceSubTitle: "Web App Development",
