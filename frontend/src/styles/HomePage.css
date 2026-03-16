@@ -402,3 +402,26 @@
     font-size: medium;
   }
 }
+
+.background-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .background-video {
+    height: 100vh;
+    height: 100dvh;
+    object-position: center;
+  }
+  
+  .homepage-bg, .homepage-bg-wrapper, .homepage-container {
+    height: 100vh;
+    height: 100dvh;
+  }
+}

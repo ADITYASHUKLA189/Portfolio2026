@@ -198,14 +198,7 @@ function HomePage({
             playsInline
             className="background-video"
             style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: -1,
-              top: 0,
-              left: 0,
-              display: isBatterySavingOn ? "none" : "block", // Hide video if battery saving is ON
+              display: isBatterySavingOn ? "none" : "block",
             }}
           >
             {/* Replace "home-bg-video.mp4" with your actual video file path in the public folder */}
