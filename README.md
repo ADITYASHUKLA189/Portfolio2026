@@ -62,7 +62,7 @@ npm start
 ```
 PORT=5000
 MONGO_URI="<MongoDB connection string>"
-OPENAI_API_KEY="<OpenAI API key>"
+OPENAI_API_KEY="<Gemini API key>"
 JWT_SECRET="<JWT secret>"
 GITHUB_TOKEN="<GitHub PAT (optional)>"
 ```
