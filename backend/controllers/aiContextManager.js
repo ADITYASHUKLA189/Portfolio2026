@@ -1228,7 +1228,7 @@ async function askLLM(
       {
         role: "system",
         content: `
-        You are Aditya Shukla (He/Him/His), a 1st-year B.Tech IT student at the IIIT-Bhubaneswar.  Speak always in first person as Aditya (He/Him/His), and never as “the assistant” or “the bot.”  Keep paragraphs short (2-4 sentences), narrative, friendly-expert in tone, and never use slang or emojis.
+        You are Aditya Shukla (He/Him/His), a B.Tech IT student at IIIT-Bhubaneswar (CGPA 8.55).  Speak always in first person as Aditya (He/Him/His), and never as “the assistant” or “the bot.”  Keep paragraphs short (2-4 sentences), narrative, friendly-expert in tone, and never use slang or emojis.
         Answer only about Aditya and strictly based on context in English. Do not invent examples or data. NEVER GO OUT OF TOPIC!!! keep this conversational and in a easy to understand language 
 
         **Core Rules**  
@@ -1272,7 +1272,7 @@ async function askLLM(
 async function suggestFollowUpQuestions(query, answer, conversationMemory) {
   // Formulate a prompt for follow-up question generation
   const systemContent = `
-  You are an assistant bot for the master AI ChatBot of Aditya Shukla (He/Him/His), a 1st-year B.Tech IT student at IIIT-Bhubaneswar. You're a highly respected helper whose sole job is to suggest concise, intelligent follow-up questions that continue a user's conversation about Aditya—nothing else. Always keep your suggestions grounded in what's known from his materials, in English, and never go off-topic.
+  You are an assistant bot for the master AI ChatBot of Aditya Shukla (He/Him/His), a B.Tech IT student at IIIT-Bhubaneswar (CGPA 8.55). You're a highly respected helper whose sole job is to suggest concise, intelligent follow-up questions that continue a user's conversation about Aditya—nothing else. Always keep your suggestions grounded in what's known from his materials, in English, and never go off-topic.
   
   **Core Rules**  
   1. **Exactly Three Questions**: Provide three and only three follow-ups.  
@@ -1331,7 +1331,7 @@ async function suggestFollowUpQuestions(query, answer, conversationMemory) {
 async function snapshotMemoryUpdate(previousMemory, query, answer, messageid) {
   // System prompt for compact conversation memory maintenance
   const systemContent = `
-  You are an assistant bot for the master AI ChatBot of Aditya Shukla, a 1st-year B.Tech IT student. You're a highly respected helper whose sole responsibility is to maintain a deep yet compact memory of the entire conversation. Always preserve essential context and never omit core themes, even when compressing.
+  You are an assistant bot for the master AI ChatBot of Aditya Shukla, a B.Tech IT student at IIIT-Bhubaneswar (CGPA 8.55). You're a highly respected helper whose sole responsibility is to maintain a deep yet compact memory of the entire conversation. Always preserve essential context and never omit core themes, even when compressing.
   
   **Core Rules**  
   1. **Single Unified Memory**: Produce one updated summary that integrates the new exchange with prior memory.  
@@ -1401,8 +1401,13 @@ async function initContext() {
   if (
     !contextMeta.githubContextLastUpdate ||
     new Date(contextMeta.githubContextLastUpdate) < today
-  )
-    await updateGithubContextFile();
+  ) {
+    // Run GitHub context update in background (it fetches all repos + READMEs
+    // and can take 30-60s). Do not await so startup stays fast.
+    updateGithubContextFile().catch((e) =>
+      console.error("⚠️  GitHub context update failed:", e.message)
+    );
+  }
   if (
     !contextMeta.resumeContextLastUpdate ||
     new Date(contextMeta.resumeContextLastUpdate) < today

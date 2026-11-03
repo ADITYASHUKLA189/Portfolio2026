@@ -5,23 +5,23 @@ import { styled } from "@stitches/react";
 import "../../styles/AboutPage.css";
 import { HexGrid } from "./HexGrid";
 // import AboutImg from "../../../public/Aditya-Profile-Photo.webp";
-import Resume from "../../assets/Aditya_Shukla_Resume.pdf";
+const Resume = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 
 const aboutData = [
   {
     icon: "bx bxs-hourglass about-icon",
-    title: "LeetCode Rating",
-    subtitle: "1735+",
+    title: "LeetCode Knight",
+    subtitle: "1853 Rating",
   },
   {
     icon: "bx bx-trophy about-icon",
     title: "DSA Problems",
-    subtitle: "700+ Solved",
+    subtitle: "800+ Solved",
   },
   {
     icon: "bx bx-support about-icon",
     title: "CBSE Score",
-    subtitle: "92.8%",
+    subtitle: "92.0%",
   },
 ];
 
@@ -117,16 +117,15 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
               >
                 <span className="about-name">Aditya Shukla</span>
                 <p className="about-role">
-                  Aspiring Software Engineer | B.Tech IT @ IIIT-Bhubaneswar
+                  Third-year B.Tech IT @ IIIT-Bhubaneswar (CGPA 8.55)
                 </p>
                 <p className="about-description">
-                  I blend technology, art, and empathy to design interfaces that
-                  surprise and delight. Detail-oriented B.Tech Information Technology
-                  student at IIIT-Bhubaneswar with a strong foundation in web
-                  development and backend systems. Skilled in the MERN stack,
-                  Python, and FastAPI for building RESTful APIs. My work is driven
-                  by curiosity and a passion for next-gen user experiences.
-                  LeetCode rating 1735+ with 700+ DSA problems solved in C++.
+                  Third-year B.Tech IT student at IIIT Bhubaneswar (CGPA 8.55) with a
+                  strong foundation in Computer Networks, Operating Systems, and Distributed
+                  Systems. LeetCode Knight (peak rating 1853, 800+ problems solved in C++),
+                  Codeforces Pupil, CodeChef 2-Star, and Odoo Hackathon 2026 Finalist.
+                  Experienced in building high-concurrency, performance-tested backend
+                  systems and APIs using Node.js, Express, FastAPI, Redis, and PostgreSQL.
                 </p>
               </motion.div>
               <motion.h2
@@ -171,7 +170,8 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                 </motion.a>
                 <motion.a
                   href={Resume}
-                  download="Aditya-Shukla-Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="download-cv"
                   style={{ userSelect: "none" }}
                   draggable={false}

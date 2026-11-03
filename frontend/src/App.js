@@ -14,7 +14,7 @@ import { fetchProjectByLink } from "./services/projectService";
 import { fetchExperienceByLink } from "./services/experienceService";
 import { fetchInvolvementByLink } from "./services/involvementService";
 import { fetchHonorsExperienceByLink } from "./services/honorsExperienceService";
-import ResumePdf from "./assets/Aditya_Shukla_Resume.pdf";
+const ResumePdf = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 import "./App.css";
 import Links from "./components/SpecialComponents/Links";
 import NavBar from "./components/SpecialComponents/NavBar";
@@ -250,7 +250,36 @@ function App({
           );
         }
         // 5) Await the answer
-        const { data } = await askPromise;
+        let data;
+        try {
+          const res = await askPromise;
+          data = res.data;
+        } catch (apiErr) {
+          if (cancelRef.current) return;
+          // Surface API errors (rate limit, server errors) directly in the chat bubble
+          const status = apiErr?.response?.status;
+          const serverMsg =
+            apiErr?.response?.data?.error ||
+            apiErr?.response?.data?.message;
+          let errText;
+          if (status === 429) {
+            errText = serverMsg
+              ? `\u26a0\ufe0f API rate limit reached: ${serverMsg}`
+              : "\u26a0\ufe0f API rate limit reached (429). The service is busy \u2014 please wait a moment and try again.";
+          } else if (status >= 500) {
+            errText = `\u26a0\ufe0f Server error (${status}): ${serverMsg || "Something went wrong on the server. Please try again."}`;
+          } else if (!status) {
+            errText =
+              "\u26a0\ufe0f Could not reach the server. Please check your connection and try again.";
+          } else {
+            errText = `\u26a0\ufe0f Error (${status}): ${serverMsg || "Something went wrong. Please try again."}`;
+          }
+          setChatHistory((h) =>
+            h.map((m) => (m.id === aiId ? { ...m, text: errText } : m)),
+          );
+          setLoading(false);
+          return;
+        }
         if (cancelRef.current) throw new Error("cancelled");
         const answerText = data.answer || "";
         await delay(300);
@@ -400,12 +429,7 @@ function App({
 
     if (initialUrlAction.triggerResumeDownload) {
       const t = setTimeout(() => {
-        const a = document.createElement("a");
-        a.href = ResumePdf;
-        a.download = "Aditya-Shukla-Resume.pdf";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        window.open(ResumePdf, "_blank", "noopener,noreferrer");
       }, BASE_MS);
       return () => clearTimeout(t);
     }

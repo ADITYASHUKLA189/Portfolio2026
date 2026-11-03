@@ -8,26 +8,26 @@ const FALLBACK_INVOLVEMENTS = [
     involvementLink: "tech-society-iiitbh",
     involvementSubTitle: "IIIT Bhubaneswar Tech Society",
     involvementTimeline: "2024 – Present",
-    involvementTagline: "Active member of the Tech Society at IIIT Bhubaneswar, participating in hackathons, coding workshops, and collaborative open-source projects.",
+    involvementTagline: "Active member of the Tech Society at IIIT Bhubaneswar, participating in workshops, hackathons, and peer code-review & debugging sessions.",
     involvementImages: [process.env.PUBLIC_URL + "/images/tech-society.webp"],
     involvementURLs: [],
     involvementParagraphs: [
-      "Active member of the Tech Society at the International Institute of Information Technology, Bhubaneswar. Engaged in organizing and participating in hackathons, coding contests, and tech workshops.",
-      "Contributed to peer-learning sessions on web development and competitive programming. Collaborated with fellow members on open-source projects and technical events that strengthen the campus developer community."
+      "Active member of the Tech Society at the International Institute of Information Technology, Bhubaneswar (2024 – Present).",
+      "Engaged in technical workshops, hackathons, peer code-review, and debugging sessions. Collaborated on open-source projects and campus developer initiatives."
     ],
     likesCount: 0,
   },
   {
-    involvementTitle: "Self-Learning & Project Building",
+    involvementTitle: "Competitive Programming & Problem Solving",
     involvementLink: "self-learning",
-    involvementSubTitle: "Continuous Learning",
+    involvementSubTitle: "Continuous Algorithmic Growth",
     involvementTimeline: "2024 – Present",
-    involvementTagline: "Actively building strong fundamentals through projects, competitive programming, and continuous self-learning.",
+    involvementTagline: "Actively solving advanced algorithmic challenges across LeetCode, Codeforces, and CodeChef.",
     involvementImages: [process.env.PUBLIC_URL + "/images/self-learning.webp"],
     involvementURLs: ["https://github.com/ADITYASHUKLA189"],
     involvementParagraphs: [
-      "Committed to continuous self-improvement through building real-world projects, exploring new technologies, and solving hundreds of DSA problems on LeetCode.",
-      "Actively learning full-stack web development (MERN stack), Python automation, and competitive programming while pursuing B.Tech in Information Technology at IIIT-Bhubaneswar."
+      "Committed to continuous self-improvement through building production-grade backend projects and solving 800+ DSA problems.",
+      "Specializing in data structures, dynamic programming, graph algorithms, and low-latency system design."
     ],
     likesCount: 0,
   },
@@ -36,7 +36,7 @@ const FALLBACK_INVOLVEMENTS = [
 // Fetch all involvements
 export const fetchInvolvements = async () => {
   try {
-    const response = await axios.get(`${API_URL}/getinvolvements`);
+    const response = await axios.get(`${API_URL}/getinvolvements`, { timeout: 3500 });
     return response.data;
   } catch (error) {
     console.error("Error fetching involvements, using fallback data:", error);
@@ -48,7 +48,8 @@ export const fetchInvolvements = async () => {
 export const fetchInvolvementByLink = async (involvementLink) => {
   try {
     const response = await axios.get(
-      `${API_URL}/getinvolvements/${involvementLink}`
+      `${API_URL}/getinvolvements/${involvementLink}`,
+      { timeout: 3500 }
     );
     return response.data;
   } catch (error) {

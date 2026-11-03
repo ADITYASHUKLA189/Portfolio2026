@@ -18,30 +18,30 @@ const FALLBACK_EXPERIENCES = [
     likesCount: 0,
   },
   {
-    experienceTitle: "B.Tech Information Technology",
+    experienceTitle: "B.Tech Information Technology (CGPA 8.55)",
     experienceLink: "btech-it-iiit-bhubaneswar",
-    experienceSubTitle: "IIIT-Bhubaneswar",
-    experienceTimeline: "Apr 2024 – Apr 2028",
-    experienceTagline: "Pursuing B.Tech IT with focus on web development, backend systems, and competitive programming.",
+    experienceSubTitle: "IIIT-Bhubaneswar | Aug 2024 – Apr 2028 (Expected)",
+    experienceTimeline: "Aug 2024 – Apr 2028",
+    experienceTagline: "Third-year B.Tech IT student at IIIT Bhubaneswar with an 8.55/10 CGPA, focused on backend systems, networking, and cloud architectures.",
     experienceImages: [process.env.PUBLIC_URL + "/images/iiit-bhubaneswar.webp"],
     experienceURLs: [],
     experienceParagraphs: [
-      "Currently pursuing B.Tech in Information Technology at the International Institute of Information Technology, Bhubaneswar (IIIT-BH).",
-      "Focusing on web development, backend systems, data structures & algorithms, and competitive programming. Active participant in coding contests and hackathons."
+      "Third-year B.Tech Information Technology undergraduate at IIIT Bhubaneswar with a cumulative GPA of 8.55/10.",
+      "Key coursework includes Computer Networks, Operating Systems, Data Structures & Algorithms, Database Management Systems (DBMS), and Object-Oriented Programming (OOP). Active member of the campus developer community."
     ],
     likesCount: 0,
   },
   {
-    experienceTitle: "Competitive Programming & Mentoring",
+    experienceTitle: "Competitive Programming & Problem Solving",
     experienceLink: "competitive-programming",
-    experienceSubTitle: "LeetCode 1735+ | 700+ Problems",
+    experienceSubTitle: "LeetCode Knight (1853) | 800+ Problems",
     experienceTimeline: "2023 – Present",
-    experienceTagline: "Problem solving, algorithm design, mock coding contests, interview prep coaching, and content creation.",
+    experienceTagline: "LeetCode Knight with 1853 peak contest rating, 800+ DSA problems solved, Codeforces Pupil, and CodeChef 2-Star.",
     experienceImages: [process.env.PUBLIC_URL + "/images/competitive-programming-1735.svg"],
     experienceURLs: ["https://leetcode.com/u/cPyORwmUqZ/", "https://codolio.com/profile/AdityaShukla"],
     experienceParagraphs: [
-      "Achieved 1735+ rating on LeetCode with 700+ DSA problems solved in C++. Sharpening logic and problem-solving with data structures, algorithms, and optimization.",
-      "Specializing in optimizing code under time pressure. Helping learners level up through problem-solving sessions, code reviews, and mock coding contests."
+      "Earned the LeetCode Knight badge with a peak contest rating of 1853 and 800+ algorithmic problems solved in C++ across dynamic programming, graphs, trees, binary search, and greedy algorithms.",
+      "Competitive ratings: Codeforces Pupil and CodeChef 2-Star. 5th place in Crackathon (IIT Bombay) and Finalist at Odoo Hackathon 2026."
     ],
     likesCount: 0,
   },
@@ -67,7 +67,7 @@ const normalizeExperience = (experience) => {
 
   return {
     ...experience,
-    experienceSubTitle: "LeetCode 1735+ | 700+ Problems",
+    experienceSubTitle: "LeetCode Knight (1853) | 800+ Problems",
     experienceTagline:
       "1735+ LeetCode rating with 700+ DSA problems solved in C++, focused on algorithms, speed, and interview-level problem solving.",
     experienceImages: [process.env.PUBLIC_URL + "/images/competitive-programming-1735.svg"],
@@ -82,7 +82,7 @@ const normalizeExperience = (experience) => {
 // Fetch all experiences
 export const fetchExperiences = async () => {
   try {
-    const response = await axios.get(`${API_URL}/getexperiences`);
+    const response = await axios.get(`${API_URL}/getexperiences`, { timeout: 3500 });
     return response.data.map(normalizeExperience);
   } catch (error) {
     console.error("Error fetching experiences, using fallback data:", error);
@@ -93,9 +93,7 @@ export const fetchExperiences = async () => {
 // Fetch a specific experience by experienceLink
 export const fetchExperienceByLink = async (experienceLink) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/getexperiences/${experienceLink}`
-    );
+    const response = await axios.get(`${API_URL}/getexperiences/${experienceLink}`, { timeout: 3500 });
     return normalizeExperience(response.data);
   } catch (error) {
     console.error("Error fetching experience by link:", error);

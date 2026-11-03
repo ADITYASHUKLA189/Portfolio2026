@@ -56,9 +56,9 @@ function HomePage({
   };
 
   const keywords = [
-    "Aspiring Software Engineer | B.Tech IT @ IIIT-Bhubaneswar",
-    "Full Stack Developer | MERN Stack | Python | FastAPI | C++",
-    "Competitive Programmer | LeetCode 1735+ | 700+ DSA Problems",
+    "Aspiring Software Engineer | B.Tech IT @ IIIT-Bhubaneswar (CGPA 8.55)",
+    "Full Stack Developer | MERN Stack | Python | FastAPI | Node.js",
+    "Competitive Programmer | LeetCode Knight 1853 | 800+ DSA Problems",
   ];
 
   const handleMouseMove = (event) => {

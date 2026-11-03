@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Resume from "../../assets/Aditya_Shukla_Resume.pdf";
+const Resume = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../services/variants";
 import "../../styles/NavBar.css";
@@ -356,7 +356,6 @@ const NavBar = ({ isBatterySavingOn, addTab, scrolled = false }) => {
               whileTap={screenWidth > 992 ? { scale: 0.9, rotate: 2 } : {}}
             >
               <a
-                download="Aditya-Shukla-Resume.pdf"
                 href={Resume}
                 className="navbar-link"
                 target="_blank"

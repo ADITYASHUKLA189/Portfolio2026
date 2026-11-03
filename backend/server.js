@@ -235,8 +235,10 @@ setInterval(async () => {
     await connectDB();
 
     const aiContextManager = require("./controllers/aiContextManager");
-    await aiContextManager.initContext();
-    console.log("✅ AI context initialized");
+    // Run AI context init in the background so the server stays responsive
+    aiContextManager.initContext()
+      .then(() => console.log("✅ AI context initialized"))
+      .catch((err) => console.error("⚠️  AI context init error:", err));
   } catch (err) {
     console.error("❌ Startup failure:", err);
     process.exit(1);

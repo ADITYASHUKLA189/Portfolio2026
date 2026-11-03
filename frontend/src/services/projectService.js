@@ -4,6 +4,53 @@ const API_URL = `${process.env.REACT_APP_API_URI}`;
 
 const FALLBACK_PROJECTS = [
   {
+    projectTitle: "VidTube — Scalable Video Streaming Platform",
+    projectLink: "vidtube-video-streaming",
+    projectSubTitle: "Node.js + Express + MongoDB + Redis + React + Docker + k6",
+    projectTimeline: "May 2026 – Present",
+    projectTagline: "YouTube-style high-concurrency video streaming backend serving 100+ concurrent users with Redis caching and k6 load testing.",
+    projectImages: [process.env.PUBLIC_URL + "/images/fullstack-dev.webp"],
+    projectURLs: ["https://github.com/ADITYASHUKLA189"],
+    projectParagraphs: [
+      "Built a YouTube-style backend (video uploads, subscriptions, playlists, likes, comments, notifications) engineered to serve 100+ concurrent users.",
+      "Secured the API with JWT authentication, role-based access control (RBAC), and strict Zod request schema validation.",
+      "Debugged and load-tested with k6 up to 100 virtual users (7,700+ requests): p95 343 ms, p99 479 ms, 0.3% failures (passing thresholds of p95 under 1s and failures under 2%), tracking metrics on Grafana dashboards.",
+      "Optimized MongoDB aggregation pipeline queries, cutting query latency by 25%. Fully containerized with Docker and automated build and deployment via GitHub Actions CI/CD."
+    ],
+    likesCount: 0,
+  },
+  {
+    projectTitle: "EcoSphere — Real-Time B2B ESG Platform (Odoo Finalist)",
+    projectLink: "ecosphere-esg-platform",
+    projectSubTitle: "PostgreSQL + Prisma + Node.js + Express + React + Zod + AWS S3",
+    projectTimeline: "2026",
+    projectTagline: "Odoo Hackathon 2026 Finalist: Unified carbon accounting, CSR campaigns, and governance audits into one real-time reporting system.",
+    projectImages: [process.env.PUBLIC_URL + "/images/fullstack-dev.webp"],
+    projectURLs: ["https://github.com/ADITYASHUKLA189"],
+    projectParagraphs: [
+      "Architected the entire backend of an ESG management platform that centralizes carbon accounting, CSR campaigns, and governance compliance audits.",
+      "Designed the relational PostgreSQL schema (departments, employees, carbon transactions, audits, compliance issues) and the Prisma ORM data layer.",
+      "Engineered RESTful APIs in Node.js and Express with Zod request validation for carbon tracking, CSR participation, and policy acknowledgements.",
+      "Built a complete gamification backend with XP points, automatic badge awards, and a reward shop with stock tracking. Implemented secure direct file uploads using AWS S3 presigned URLs."
+    ],
+    likesCount: 0,
+  },
+  {
+    projectTitle: "URL Shortener with Analytics — System Design",
+    projectLink: "url-shortener-analytics",
+    projectSubTitle: "Redis + System Design Architecture",
+    projectTimeline: "2026",
+    projectTagline: "High-throughput URL shortener with click analytics and Redis in-memory caching for low-latency redirects.",
+    projectImages: [process.env.PUBLIC_URL + "/images/fullstack-dev.webp"],
+    projectURLs: ["https://github.com/ADITYASHUKLA189"],
+    projectParagraphs: [
+      "Designed and built a scalable URL shortener with comprehensive click analytics, working through end-to-end distributed system design trade-offs.",
+      "Implemented short-code generation algorithms and optimized for read-heavy redirect traffic patterns.",
+      "Employed Redis in-memory caching to serve high-frequency redirect lookups instantly, offloading queries from the primary database."
+    ],
+    likesCount: 0,
+  },
+  {
     projectTitle: "EduArchive — Academic Resource Platform",
     projectLink: "eduarchive",
     projectSubTitle: "HTML + CSS + JavaScript + Cloudinary",
@@ -131,7 +178,7 @@ const mergeProjects = (projects) => {
 // Fetch all projects
 export const fetchProjects = async () => {
   try {
-    const response = await axios.get(`${API_URL}/getprojects`);
+    const response = await axios.get(`${API_URL}/getprojects`, { timeout: 3500 });
     return mergeProjects(response.data);
   } catch (error) {
     console.error("Error fetching projects, using fallback data:", error);

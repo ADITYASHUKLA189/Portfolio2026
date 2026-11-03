@@ -42,14 +42,25 @@ async function aiRoutes(fastify, options) {
   // Endpoint to ask a question to the AI using the indexed context
   fastify.post("/ask-chat", async (request, reply) => {
     try {
-      const { query } = request.body;
+      const { query, conversationMemory } = request.body;
       if (!query || query.trim().length === 0) {
         return reply.code(400).send({ message: "Query cannot be empty." });
       }
-      const answer = await askLLM(query);
+      const answer = await askLLM(query, conversationMemory || "");
       reply.send({ answer });
     } catch (error) {
       console.error("Error handling /ask-chat:", error);
+      // Propagate rate-limit errors (429) with the correct status code
+      const is429 =
+        error?.status === 429 ||
+        (error?.message && error.message.includes("429"));
+      if (is429) {
+        return reply.code(429).send({
+          error:
+            "Gemini API rate limit exceeded. You have hit the free-tier limit. " +
+            "Please wait a minute and try again, or check your API quota at https://aistudio.google.com.",
+        });
+      }
       reply.code(500).send({ error: error.message });
     }
   });
