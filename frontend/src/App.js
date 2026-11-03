@@ -19,7 +19,6 @@ import Links from "./components/SpecialComponents/Links";
 import NavBar from "./components/SpecialComponents/NavBar";
 import PowerMode from "./components/SpecialComponents/PowerMode";
 
-const ResumePdf = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 // Lazy load major page components for code splitting
 const HomePage = lazy(() => import("./components/HomePage/HomePage"));
 const AboutPage = lazy(() => import("./components/AboutPage/AboutPage"));
@@ -430,7 +429,7 @@ function App({
 
     if (initialUrlAction.triggerResumeDownload) {
       const t = setTimeout(() => {
-        window.open(ResumePdf, "_blank", "noopener,noreferrer");
+        window.open("https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view", "_blank", "noopener,noreferrer");
       }, BASE_MS);
       return () => clearTimeout(t);
     }
