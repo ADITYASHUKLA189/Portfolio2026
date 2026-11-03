@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-const Resume = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../services/variants";
 import "../../styles/NavBar.css";
+
+const Resume = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 
 const NavBar = ({ isBatterySavingOn, addTab, scrolled = false }) => {
   const [activeLink, setActiveLink] = useState("home");

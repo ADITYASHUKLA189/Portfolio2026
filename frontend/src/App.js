@@ -14,11 +14,12 @@ import { fetchProjectByLink } from "./services/projectService";
 import { fetchExperienceByLink } from "./services/experienceService";
 import { fetchInvolvementByLink } from "./services/involvementService";
 import { fetchHonorsExperienceByLink } from "./services/honorsExperienceService";
-const ResumePdf = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 import "./App.css";
 import Links from "./components/SpecialComponents/Links";
 import NavBar from "./components/SpecialComponents/NavBar";
 import PowerMode from "./components/SpecialComponents/PowerMode";
+
+const ResumePdf = "https://drive.google.com/file/d/18bW164EFOET26yh-OeKdDXT-BTr_jiWW/view";
 // Lazy load major page components for code splitting
 const HomePage = lazy(() => import("./components/HomePage/HomePage"));
 const AboutPage = lazy(() => import("./components/AboutPage/AboutPage"));
